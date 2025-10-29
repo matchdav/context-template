@@ -1,0 +1,10 @@
+# Ignore logs, outputs, and local journals
+
+# Uncomment the lines below to ignore these directories
+
+# logs/
+# outputs/
+# journal/
+# notes/
+# workload/
+# .context/
