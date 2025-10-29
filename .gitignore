@@ -1,0 +1,7 @@
+# Ignore logs, outputs, and local journals
+logs/
+outputs/
+journal/
+notes/
+workload/
+.context/
