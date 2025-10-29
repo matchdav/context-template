@@ -1,0 +1,21 @@
+{
+  "projectName": "Example Project Context",
+  "description": "This file links related repositories, documentation, and resources for your team or project.",
+  "repositories": [
+    {
+      "name": "main-app",
+      "url": "https://github.com/example/main-app"
+    },
+    {
+      "name": "infra-scripts",
+      "url": "https://github.com/example/infra-scripts"
+    }
+  ],
+  "docs": [
+    "architecture/README.md",
+    "README.md"
+  ],
+  "automations": [
+    "automations/daily-digest.js"
+  ]
+}

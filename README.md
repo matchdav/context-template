@@ -38,3 +38,8 @@ A typical work session follows a predictable rhythm:
 3.  **Customize `automations/daily-digest.sh`:** Update the script to integrate with your project management tools (e.g., Jira, GitHub Issues).
 4.  **Populate `architecture/` and `perspectives/`:** Add your own architectural diagrams, decision records, and project-specific context.
 5.  **Start Using the Workflow:** Begin your daily work by following the "Morning Sync -> Pickup -> Do -> Handoff" cycle.
+
+## Linking Contexts & Discovery
+- Use `context.json` to link related repositories, documentation, and automations.
+- See `architecture/team-context-design.md` for design ideas on discoverability and onboarding.
+- Automations can leverage `context.json` for richer digests and dashboards.
