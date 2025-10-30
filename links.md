@@ -25,5 +25,5 @@
 
 ### Context-Driven Development Talks
 
-* [Advanced Context Engineering for Agents](https://www.youtube.com/watch?v=8kMaTybvDUw)
+* [Advanced Context Engineering for Agents](https://www.youtube.com/watch?v=IS_y40zY-hc&t=1s)
 * [Twelve-Factor Agents](https://www.youtube.com/watch?v=8kMaTybvDUw)
