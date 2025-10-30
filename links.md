@@ -31,4 +31,5 @@
 ### MCP
 
 * [modelcontextprotocol.io/](https://modelcontextprotocol.io/)
-
+* [https://mcpservers.org/](https://mcpservers.org/)
+* [https://mcp.so/](https://mcp.so/)
