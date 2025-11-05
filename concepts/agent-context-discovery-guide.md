@@ -6,8 +6,8 @@ This document explains how an AI agent (like GitHub Copilot) will interpret and 
 
 ### Implicitly Picked Up
 - **Workspace Structure**: The agent scans the directory tree, recognizing key folders like `architecture/`, `perspectives/`, `workload/`, `automations/`, and `prompts/`.
-- **Central Index Files**: Files like `copilot-instructions.md`, `README.md`, and `context.json` are read first for high-level context, project purpose, and configuration.
-- **Standard Protocols**: Protocol documents in `prompts/` (e.g., `HANDOFF.md`, `PICKUP.md`, `CREATING-SPECS.md`) are used to guide workflows, especially if their names match common agent tasks.
+- **Central Index Files**: Files like `AGENTS.md`, `copilot-instructions.md`, `README.md`, and `context.json` are read first for high-level context, project purpose, and configuration.
+- **Standard Protocols**: Protocol documents in `prompts/` (e.g., `HANDOFF.md`, `PICKUP.md`) are used to guide workflows, especially if their names match common agent tasks.
 - **Automation Scripts**: Scripts in `automations/` (like `daily-digest.sh`, `daily-digest.js`) are recognized as automation entry points, especially if referenced in documentation or Makefiles.
 - **Recent Context**: Files like `daily-digest.md` and `workload/priorities.md` are read for up-to-date work state, priorities, and active tickets.
 
