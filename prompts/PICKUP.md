@@ -680,6 +680,7 @@ When you finish your session, remember what you just went through:
 
 ## 🔗 See Also
 
+- **[DEFINITIONS.md](./docs/definitions.md)** - Key vocabulary and definitions
 - **[HANDOFF.md](./HANDOFF.md)** - How to hand off work to the next person
 - **[~/github/context/daily-digest.md](../../daily-digest.md)** - Your daily starting point
 - **[~/github/context/automations/README.md](../../automations/README.md)** - Automation tools

@@ -716,6 +716,7 @@ If you learned something important, update:
 ## 🔗 Quick Reference Links
 
 ### Documentation
+- **Definitions**: `~/github/context/docs/definitions.md`
 - **OneNews README**: `~/github/onenews/README.md`
 - **Content API README**: `~/github/onenews/content-firehose/README.md`
 - **Feature Flags README**: `~/github/duplex-feature-flags/README.md`
