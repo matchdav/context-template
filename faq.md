@@ -1,8 +1,8 @@
 ### Doesn't MCP already do this?
 
-* See [this explanation](./mcp-vs-file-context.md)
+* See [this explanation](./concepts/mcp-vs-file-context.md)
 
-### How does this template help with onboarding new team members?
+### How can this template help with onboarding new team members?
 
 *   The `constitution.md` and `README.md` provide a high-level overview of project principles and workflows.
 *   The `prompts/` directory contains standardized protocols (e.g., `PICKUP.md`) that guide new members through common tasks.
@@ -32,6 +32,6 @@
 
 ### How can I ensure my agent always follow these rules?
 
-*   The `copilot-instructions.md` file is designed to provide explicit directives to AI agents on how to interact with your workspace and follow established protocols.
+*   Use the agent prompt file(s) specific to your environment (e.g., `copilot-instructions.md`, `GEMINI.md`, `AGENTS.md`, etc.) to provide explicit directives to AI agents on how to interact with your workspace and follow established protocols.
 *   By clearly defining expectations and referencing key documents (like `constitution.md` and the `prompts/` directory) within `copilot-instructions.md`, you guide the agent's behavior.
-*   Regularly review and update `copilot-instructions.md` to reflect any changes in your team's workflows or priorities.
+*   Regularly review and update your agent files to reflect any changes in your team's workflows or priorities.
