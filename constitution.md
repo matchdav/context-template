@@ -7,7 +7,8 @@ This constitution defines the principles, roles, and workflows for this project.
 *   **Context is King**: All work begins and ends with context. This repository is the definitive source for project status, architecture, and workflows.
 *   **Systematic Workflows**: We adhere to standardized, repeatable protocols for all development tasks. The core workflow is **Morning Sync -> Pickup -> Do -> Handoff**.
 *   **Automation First**: Any repetitive task should be automated. The `automations` directory is the home for these scripts.
-*   **Explicit Handoffs**: No work is complete until it is documented in a handoff document. This ensures context is preserved.
+*   **Explicit Handoffs**: No work is complete until it is documented in a handoff document. By this we mean a plain Markdown file, not a vector database or internal agent memory.  This ensures context is preserved *in the file system* rather than lost somewhere in the MCP network.
+*   **Transparency is Everything**: Blockers must be surfaced immediately—never hidden or ignored. Just like in scrum, clear and early communication prevents wasted effort and enables rapid problem-solving, rather than agents madly throwing spaghetti at the wall.
 
 ## Roles
 
