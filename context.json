@@ -17,5 +17,32 @@
   ],
   "automations": [
     "automations/daily-digest.js"
+  ],
+  "services": [
+    {
+      "name": "github",
+      "type": "api",
+      "description": "GitHub API integration for repository and user data",
+      "endpoint": "https://api.github.com/"
+    },
+    {
+      "name": "slack",
+      "type": "webhook",
+      "description": "Slack webhook for notifications",
+      "endpoint": "https://hooks.slack.com/services/EXAMPLE",
+      "docs":"https://docs.slack.dev/"
+    },
+    {
+      "name": "openai",
+      "type": "api",
+      "description": "OpenAI API for language model, embeddings, images, audio, and more. See https://platform.openai.com/docs/api-reference for endpoints.",
+      "endpoint": "https://api.openai.com/v1/",
+      "authentication": {
+        "type": "bearer",
+        "header": "Authorization",
+        "env": "OPENAI_API_KEY"
+      },
+      "docs": "https://platform.openai.com/docs/api-reference"
+    }
   ]
 }
