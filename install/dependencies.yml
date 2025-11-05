@@ -1,0 +1,7 @@
+cli: 
+  - gh
+  - jq
+  - yq
+  - wget
+  - make
+  - curl
