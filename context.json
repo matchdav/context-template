@@ -4,20 +4,17 @@
   "repositories": [
     {
       "name": "main-app",
-      "url": "https://github.com/example/main-app"
+      "localPath": "~/projects/main-app",
+      "url": "https://github.com/myorg/main-app"
     },
     {
       "name": "infra-scripts",
-      "url": "https://github.com/example/infra-scripts"
+      "localPath": "~/projects/infra-scripts",
+      "url": "https://github.com/myorg/infra-scripts"
     }
   ],
-  "docs": [
-    "architecture/README.md",
-    "README.md"
-  ],
-  "automations": [
-    "automations/daily-digest.js"
-  ],
+  "docs": ["architecture/README.md", "README.md"],
+  "automations": ["automations/daily-digest.js"],
   "services": [
     {
       "name": "github",
@@ -30,7 +27,7 @@
       "type": "webhook",
       "description": "Slack webhook for notifications",
       "endpoint": "https://hooks.slack.com/services/EXAMPLE",
-      "docs":"https://docs.slack.dev/"
+      "docs": "https://docs.slack.dev/"
     },
     {
       "name": "openai",
@@ -44,5 +41,34 @@
       },
       "docs": "https://platform.openai.com/docs/api-reference"
     }
-  ]
+  ],
+  "tools": {
+    "cli": {
+      "gh": {
+        "description": "GitHub CLI for repository operations",
+        "url": "https://cli.github.com/",
+        "exec": "gh"
+      },
+      "jq": {
+        "description": "Command-line JSON processor",
+        "url": "https://stedolan.github.io/jq/",
+        "exec": "jq"
+      },
+      "yq": {
+        "description": "YAML/XML/TOML processor - jq wrapper for YAML documents",
+        "url": "https://github.com/mikefarah/yq",
+        "exec": "yq"
+      },
+      "wget": {
+        "description": "Internet file retrieval utility",
+        "url": "https://www.gnu.org/software/wget/",
+        "exec": "wget"
+      },
+      "make": {
+        "description": "Utility for directing compilation and task automation",
+        "url": "https://www.gnu.org/software/make/",
+        "exec": "make"
+      }
+    }
+  }
 }
