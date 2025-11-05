@@ -1,6 +1,15 @@
-# Context Template
 
-This repository is a template for creating a central hub for managing perspective, workflows, and automation across all your active projects. It acts as a meta-repository, providing a single source of truth that enables efficient context switching and seamless collaboration between developers and AI agents.
+# Context Template (GitHub Template)
+
+This repository is a **GitHub Template** for creating a central hub to manage perspective, workflows, and automation across all your active projects. Use the "Use this template" button on GitHub to quickly generate your own context repository, pre-populated with best practices and structure.
+
+As a template, it acts as a meta-repository, providing a single source of truth that enables efficient context switching and seamless collaboration between developers and AI agents.
+
+## Using This Template
+
+1. Click the **"Use this template"** button at the top of the repository page on GitHub.
+2. Name your new repository and choose its visibility (public or private).
+3. Clone your new repository and follow the setup instructions below to customize it for your team or project.
 
 ## Core Principles
 
