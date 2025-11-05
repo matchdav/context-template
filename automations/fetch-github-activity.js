@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// daily-digest.js: Example stub script for daily digest automation
+// Example stub script for daily digest automation
 const { execSync, spawnSync } = require('child_process');
 
 function checkGhCli() {
