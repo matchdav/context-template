@@ -1,0 +1,15 @@
+{
+  "directories": [
+    "architecture",
+    "perspectives",
+    "operations",
+    "specs",
+    ".specify/templates"
+  ],
+  "chunkSize": 800,
+  "chunkOverlap": 100,
+  "embeddings": {"provider": "none"},
+  "refreshIntervalSeconds": 1800,
+  "maxFileSizeBytes": 102400,
+  "indexDir": ".context/index"
+}
