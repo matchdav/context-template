@@ -1,6 +1,12 @@
 # Project Constitution (Template)
 
-This constitution defines the principles, roles, and workflows for this project. It is a living document that should be adapted to your team's needs.
+---
+Constitution Version: 1.0.0
+Last Updated: 2025-11-06
+Status: Active
+---
+
+This constitution defines the principles, roles, governance, and workflows for this project. It is a living document that should be adapted to your team's needs. Amendments follow the governance process below and always bump the version.
 
 ## Principles
 
@@ -12,8 +18,10 @@ This constitution defines the principles, roles, and workflows for this project.
 
 ## Roles
 
-*   **Maintainer:** Oversees the context repository, ensuring the constitution and workflows are followed.
-*   **Contributor:** Follows the prescribed workflows, contributes to the context repository, and suggests improvements.
+* **Maintainer:** Stewards the constitution, approves workflow changes, ensures hygiene and archival policies are enforced.
+* **Contributor:** Implements work using prescribed protocols (specify → plan → tasks → implement → analyze → checklist → clarify → handoff) and proposes improvements.
+* **Reviewer:** Provides structured review on specs, plans, and implementation changes; enforces quality gates (build, lint, tests, documentation).
+* **Operator:** Oversees automations, ingestion jobs, monitoring, and incident response; can enact emergency operational amendments (see Governance).
 
 ## Workflows
 
@@ -30,6 +38,33 @@ This constitution defines the principles, roles, and workflows for this project.
 *   **Perspectives:** Project-specific context, goals, and status are stored in the `perspectives/` directory.
 *   **Journaling:** Long-term, significant findings are summarized and saved in the central `journal/` directory.
 
-## Amendments
+## Governance & Amendments
 
-Propose changes to this constitution via pull request. All team members are encouraged to suggest improvements to our workflows and principles.
+### Decision Categories
+1. **Routine:** Minor clarifications or typo fixes in docs. Approval: 1 Maintainer.
+2. **Workflow Change:** Alters any protocol (e.g., PICKUP, HANDOFF, Spec Kit sequence). Approval: Majority of Maintainers + at least 1 Reviewer.
+3. **Structural Change:** Directory layout, archival policy, ingestion architecture. Approval: 2 Maintainers + 1 Operator.
+4. **Emergency Operational:** Required to restore service or data integrity. Operator may apply immediately; retrospective PR within 24h.
+
+### Amendment Process
+1. **Proposal:** Open a PR with a summary and rationale; label `constitution-amendment`.
+2. **Review:** Collect inline comments; unresolved items tagged `[NEEDS CLARIFICATION:]` (≤ 3 total allowed).
+3. **Consensus:** Required approvals per category; remove all clarification tags.
+4. **Version Bump:** Increment `Constitution Version` (semantic: MAJOR for structural/workflow change, MINOR for added sections, PATCH for wording).
+5. **Merge & Record:** Merge PR; add an entry to `journal/` summarizing change.
+
+### Emergency Path
+Operator applies minimal change -> documents incident & justification -> opens retrospective PR within 24h for formalization.
+
+## Spec Kit Integration
+
+Work items must flow through: **Specify → Plan → Tasks → Implement → Analyze → Checklist → Clarify → Handoff**.
+
+Quality gates (Build, Lint, Tests) must pass before checklist completion. Parallelizable tasks marked with `[P]`. Clarification markers limited to 3 and must be resolved before merge.
+
+## Quality Gates
+* **Build:** Project compiles / scripts run without error.
+* **Lint:** No critical lint violations.
+* **Tests:** Added/updated tests cover happy path + 1–2 edge cases.
+* **Docs:** README / spec reflect current behavior.
+* **Security:** No secrets committed; dependencies reviewed for license/security impact.

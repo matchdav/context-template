@@ -61,3 +61,47 @@ Normative operational references live under `operations/`:
 - `operations/service-management-pm2.md` — supervising services with PM2
 
 Use these patterns to extend automation scripts and enforce repository hygiene.
+
+## Spec Kit Workflow
+This template includes a lightweight specification and execution framework to standardize feature delivery.
+
+### Sequence
+`Specify → Plan → Tasks → Implement → Analyze → Checklist → Clarify → Handoff`
+
+### Artifacts & Locations
+* Specs: `.specify/templates/spec-template.md`
+* Plans: `.specify/templates/plan-template.md`
+* Tasks: `.specify/templates/tasks-template.md`
+* Delivery Checklist: `.specify/templates/checklist-template.md`
+* Agent Context File: `.specify/templates/agent-file-template.md`
+
+### Bash Helpers
+Scripts under `.specify/scripts/bash/` accelerate consistent creation:
+* `common.sh` – logging & utilities
+* `check-prerequisites.sh` – environment readiness JSON
+* `create-new-feature.sh` – creates a branch & starter spec
+
+Example (create a new feature spec & branch):
+```bash
+./.specify/scripts/bash/create-new-feature.sh "Realtime Digest API"
+```
+
+This will:
+1. Create a slugged branch (e.g., `feature/realtime-digest-api`)
+2. Generate a dated spec stub under `.specify/specs/`
+3. Output JSON (optional) for downstream automation
+
+### Conventions
+* Parallelizable tasks prefixed with `[P]`
+* Clarification markers: `[NEEDS CLARIFICATION:]` (≤ 3 allowed; must be resolved before merge)
+* Quality gates (build, lint, tests) must pass before checklist completion.
+
+### Recommended Flow
+1. Run feature creation script
+2. Fill spec (scenarios, functional requirements, success criteria)
+3. Derive plan phases & task list
+4. Implement incrementally; update tasks status
+5. Run analysis (post-implementation reflection) & finalize checklist
+6. Resolve any clarifications; perform handoff
+
+Refer to `constitution.md` for governance and quality gate definitions.
