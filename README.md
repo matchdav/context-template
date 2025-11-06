@@ -52,3 +52,12 @@ A typical work session follows a predictable rhythm:
 - Use `context.json` to link related repositories, documentation, services, and automations.
 - See `architecture/team-context-design.md` for design ideas on discoverability and onboarding.
 - Automations can leverage `context.json` for richer digests and dashboards.
+
+## Operations & Lifecycle
+Normative operational references live under `operations/`:
+
+- `operations/maintenance-policy.md` — retention & archival workflows
+- `operations/ingestion-pattern.md` — incremental ingestion design
+- `operations/service-management-pm2.md` — supervising services with PM2
+
+Use these patterns to extend automation scripts and enforce repository hygiene.
