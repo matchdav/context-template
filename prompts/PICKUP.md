@@ -35,7 +35,8 @@ Use this checklist at the start of every session. Check off items as you go:
 **This is your most important starting point.**
 
 ```bash
-cat ~/github/context/daily-digest.md
+# If CONTEXT_DIR environment variable is set, use it; otherwise use current directory
+cat ${CONTEXT_DIR:-.}/daily-digest.md
 ```
 
 **What to look for:**
@@ -97,11 +98,11 @@ gh pr list --author @me --state open --json number,title,isDraft,updatedAt
 # Find handoff documents for current branch
 ls docs/*-handoff.md
 
-# If on a feature branch like DXT-1234
-cat docs/DXT-*-handoff.md
+# If on a feature branch like TICKET-1234
+cat docs/TICKET-*-handoff.md
 
 # Alternative: search by ticket number
-ls docs/ | grep -i "DXT-1234"
+ls docs/ | grep -i "TICKET-1234"
 ```
 
 **What to extract from handoff docs:**
@@ -160,7 +161,7 @@ TICKET=$(git branch --show-current)
 jira issue view $TICKET
 
 # Or manually specify
-jira issue view DXT-1234
+jira issue view TICKET-1234
 ```
 
 **What to extract:**
@@ -222,10 +223,11 @@ ls -la
 ```
 
 **Expected locations:**
-- `~/github/onenews/web-services/` - For frontend work
-- `~/github/onenews/content-firehose/` - For API work
-- `~/github/quartz/duplex-quartz/` - For Quartz work
-- `~/github/duplex-feature-flags/` - For feature flags
+- Check `context.json` for linked repositories and their local paths
+- Common locations might include:
+  - `~/projects/{{PROJECT_NAME}}/` - Main project directory
+  - `~/projects/{{PROJECT_NAME}}-api/` - API service
+  - `~/projects/{{PROJECT_NAME}}-frontend/` - Frontend service
 
 #### Verify Dependencies Are Installed
 
@@ -243,8 +245,8 @@ pnpm install
 # Check if virtual env is active
 echo $VIRTUAL_ENV
 
-# For content-firehose, use Make
-cd ~/github/onenews/content-firehose
+# For Python projects, use Make if available
+cd {{PROJECT_DIR}}
 make test  # This also verifies dependencies
 ```
 
@@ -260,27 +262,27 @@ cat .env | grep -v "#" | grep -c "=" && echo "✅ .env has content"
 
 **If missing .env:**
 ```bash
-# Get from 1Password using CLI
+# Get from password manager using CLI (example with 1Password)
 eval $(op signin)
-op document get "OneNews dotenv" --out-file .env
+op document get "{{PROJECT_NAME}} dotenv" --out-file .env
 
-# Or download manually from 1Password:
-# Vault: "Duplex General"
-# Item: "OneNews dotenv" or "content-api dotenv"
+# Or download manually from your password manager:
+# Vault: "{{VAULT_NAME}}"
+# Item: "{{PROJECT_NAME}} dotenv" or "{{SERVICE_NAME}} dotenv"
 ```
 
 #### Test the Development Server
 
-**For web-services:**
+**For Node.js projects:**
 ```bash
-cd ~/github/onenews/web-services
-pnpm dev:on  # Should start on :3001
+cd {{PROJECT_DIR}}
+pnpm dev   # Or npm run dev, yarn dev, etc.
 ```
 
-**For content-firehose:**
+**For Python projects:**
 ```bash
-cd ~/github/onenews/content-firehose
-make run  # Should start on :5001
+cd {{PROJECT_DIR}}
+make run  # Or python -m uvicorn main:app, etc.
 ```
 
 **Success indicators:**
@@ -330,9 +332,9 @@ git diff --stat main..HEAD
 
 ```bash
 # Find test files for a component
-# Example: For ContentSlotCard.vue, look for ContentSlotCard.test.ts
-ls web-services/common/components/**/*.test.ts
-ls web-services/common/composables/**/*.test.ts
+# Example: For ComponentName.vue, look for ComponentName.test.ts
+ls {{PROJECT_DIR}}/components/**/*.test.ts
+ls {{PROJECT_DIR}}/composables/**/*.test.ts
 
 # View test file
 cat path/to/component.test.ts
@@ -376,9 +378,9 @@ Use this decision tree:
   - No tests yet? → Write tests
   - Implementation incomplete? → Continue coding
 
-**Has the Jira ticket been updated?**
+**Has the ticket been updated?**
 ```bash
-jira issue view DXT-1234
+jira issue view TICKET-1234
 ```
 - Check for new comments or changed requirements
 
@@ -404,7 +406,7 @@ Based on everything you've learned, write a clear plan:
 - None currently
 
 **Questions:**
-- Need to confirm with Tristan about feature flag setup
+- Need to confirm with {{TEAM_MEMBER}} about feature flag setup
 
 **Time Estimate:** ~2 hours
 ```
@@ -416,13 +418,13 @@ Based on everything you've learned, write a clear plan:
 
 **Always run tests before continuing work.**
 
-#### For Web Services (JavaScript/TypeScript)
+#### For JavaScript/TypeScript Projects
 
 ```bash
-cd ~/github/onenews/web-services
+cd {{PROJECT_DIR}}
 
 # Run unit tests
-pnpm test
+pnpm test  # or npm test, yarn test, etc.
 
 # Run specific test file if working on particular feature
 pnpm test path/to/file.test.ts
@@ -431,13 +433,13 @@ pnpm test path/to/file.test.ts
 pnpm test:watch
 ```
 
-#### For Content Firehose (Python)
+#### For Python Projects
 
 ```bash
-cd ~/github/onenews/content-firehose
+cd {{PROJECT_DIR}}
 
 # Run all tests
-make test
+make test  # or pytest, python -m pytest, etc.
 
 # Run specific test
 pytest tests/path/to/test_file.py -v
@@ -446,10 +448,10 @@ pytest tests/path/to/test_file.py -v
 #### Check E2E Tests (if applicable)
 
 ```bash
-cd ~/github/onenews/web-services
+cd {{PROJECT_DIR}}
 
 # Build first (E2E tests require a build)
-pnpm build
+pnpm build  # or npm run build, etc.
 
 # Run E2E tests
 pnpm test:e2e
@@ -493,7 +495,7 @@ You're now ready to continue! You should know:
 ### Scenario 1: "I just opened this workspace"
 
 **Fast Path:**
-1. `cat ~/github/context/daily-digest.md` - See what's active
+1. `cat ${CONTEXT_DIR:-.}/daily-digest.md` - See what's active
 2. `gh pr list --author @me` - Check your open PRs
 3. `gh pr view` - See the most recent one
 4. `cat docs/*-handoff.md` - Read handoff doc
@@ -529,7 +531,7 @@ You're now ready to continue! You should know:
 1. `git log -p path/to/file` - See how the file evolved
 2. `git blame path/to/file` - See who wrote each line
 3. `gh pr list --search "related-keyword"` - Find related PRs
-4. Search for similar patterns: `grep -r "similarFunction" web-services/`
+4. Search for similar patterns: `grep -r "similarFunction" {{PROJECT_DIR}}/`
 5. Check ADRs: `ls decision-records/`
 6. Ask in Slack with specific questions
 
@@ -570,10 +572,10 @@ pnpm test --reporter=verbose || make test
 
 ```bash
 # Re-read daily digest
-cat ~/github/context/daily-digest.md
+cat ${CONTEXT_DIR:-.}/daily-digest.md
 
 # Update digest with latest data
-cd ~/github/context && ./automations/daily-digest.sh generate
+cd ${CONTEXT_DIR:-.} && ./automations/daily-digest.sh generate
 
 # See all your open PRs
 gh pr list --author @me --json number,title,updatedAt,isDraft
@@ -645,13 +647,13 @@ If you learned something valuable:
 
 ```bash
 # Update perspective documents
-vim ~/github/context/perspectives/[topic].md
+vim ${CONTEXT_DIR:-.}/perspectives/[topic].md
 
 # Update architecture docs
-vim ~/github/context/architecture/[pattern].md
+vim ${CONTEXT_DIR:-.}/architecture/[pattern].md
 
 # Add to cheat sheets
-vim ~/github/context/cheat-sheets/[tool].md
+vim ${CONTEXT_DIR:-.}/cheat-sheets/[tool].md
 ```
 
 ### Improve Handoff Docs
@@ -660,7 +662,8 @@ If the handoff doc was missing something you needed:
 
 ```bash
 # Update it now
-vim docs/DXT-XXXX-handoff.md
+vim docs/TICKET-XXXX-handoff.md
+```
 
 # Add what you wish had been there
 # Future you will thank you
@@ -682,9 +685,9 @@ When you finish your session, remember what you just went through:
 
 - **[DEFINITIONS.md](./docs/definitions.md)** - Key vocabulary and definitions
 - **[HANDOFF.md](./HANDOFF.md)** - How to hand off work to the next person
-- **[~/github/context/daily-digest.md](../../daily-digest.md)** - Your daily starting point
-- **[~/github/context/automations/README.md](../../automations/README.md)** - Automation tools
-- **[~/github/onenews/docs/CONTRIBUTING.md](../../../onenews/docs/CONTRIBUTING.md)** - Project contribution guide
+- **[daily-digest.md](../../daily-digest.md)** - Your daily starting point
+- **[automations/README.md](../../automations/README.md)** - Automation tools
+- Check `context.json` for links to project-specific documentation
 
 ---
 

@@ -10,7 +10,7 @@ This prompt provides comprehensive instructions for AI coding agents to understa
 ### Current Context Access
 **ALWAYS START HERE** - These are your essential context sources:
 
-1.  **Daily Digest** (`~/github/context/daily-digest.md`)
+1.  **Daily Digest** (`${CONTEXT_DIR:-.}/daily-digest.md`)
     - Auto-generated at 9 AM daily from Jira and GitHub
     - Shows active tickets, PRs, and recent activity
     - **Read this FIRST** to understand current priorities
@@ -76,11 +76,11 @@ history | tail -20
 
 #### Workspace Structure
 ```
-onenews/              # Main OneNews platform (web + API)
-duplex-quartz/        # Quartz email platform
-duplex-infra-services/# Infrastructure & tooling
-duplex-feature-flags/ # ConfigCat feature flag management
-context/              # This repo - documentation & context
+{{PROJECT_NAME}}/              # Main project platform (web + API)
+{{PROJECT_NAME}}-services/     # Supporting services
+{{PROJECT_NAME}}-infra/         # Infrastructure & tooling
+{{PROJECT_NAME}}-flags/         # Feature flag management
+context/                        # This repo - documentation & context
 ```
 
 #### Check Current Directory
@@ -94,8 +94,8 @@ ls -la
 # For Node.js projects
 pnpm install
 
-# For Python projects (content-firehose)
-cd content-firehose && make test
+# For Python projects
+cd {{PROJECT_DIR}} && make test
 
 # Check environment variables
 cat .env | grep -v "^#" | head -10
@@ -137,16 +137,16 @@ gh pr diff
 jira issue list -q "assignee = currentUser()"
 
 # View specific ticket
-jira issue view DXT-1234
+jira issue view TICKET-1234
 
 # Add a comment
-jira issue comment DXT-1234 "Working on implementation"
+jira issue comment TICKET-1234 "Working on implementation"
 
 # Transition ticket
-jira issue move DXT-1234 "In Progress"
+jira issue move TICKET-1234 "In Progress"
 
 # Open ticket in browser
-jira issue view DXT-1234 --web
+jira issue view TICKET-1234 --web
 ```
 
 ### GitHub CLI
@@ -164,7 +164,7 @@ gh pr checks
 gh pr view --comments
 
 # Create new PR
-gh pr create --draft --title "DXT-1234: Feature name" --body "Description"
+gh pr create --draft --title "TICKET-1234: Feature name" --body "Description"
 
 # Review PR
 gh pr review --approve
@@ -185,7 +185,7 @@ Access via Command Palette (`Cmd+Shift+P` → "Tasks: Run Task"):
 
 ### Context Automation Scripts
 ```bash
-cd ~/github/context
+cd ${CONTEXT_DIR:-.}
 
 # Generate fresh digest
 ./automations/daily-digest.sh generate
@@ -208,27 +208,27 @@ cd ~/github/context
 
 1.  **Get ticket details**
     ```bash
-    jira issue view DXT-1234
+    jira issue view TICKET-1234
     ```
 
 2.  **Create feature branch**
     ```bash
     git checkout main
     git pull origin main
-    git checkout -b DXT-1234
+    git checkout -b TICKET-1234
     ```
 
 3.  **Move ticket to "In Progress"**
     ```bash
-    jira issue move DXT-1234 "In Progress"
+    jira issue move TICKET-1234 "In Progress"
     ```
 
 4.  **Create documentation**
     Create in `docs/`:
-    - `DXT-1234-summary.md` - What you're building
-    - `DXT-1234-implementation-journal.md` - Development log
-    - `DXT-1234-testing-checklist.md` - QA steps
-    - `DXT-1234-handoff.md` - Next person's guide
+    - `TICKET-1234-summary.md` - What you're building
+    - `TICKET-1234-implementation-journal.md` - Development log
+    - `TICKET-1234-testing-checklist.md` - QA steps
+    - `TICKET-1234-handoff.md` - Next person's guide
 
 ### Continuing Work on Existing Branch
 
@@ -255,11 +255,11 @@ cd ~/github/context
 
 5.  **Check if tests are passing**
     ```bash
-    # For web-services
-    cd web-services && pnpm test
+    # For Node.js projects
+    cd {{PROJECT_DIR}} && pnpm test
     
-    # For content-firehose
-    cd content-firehose && make test
+    # For Python projects
+    cd {{PROJECT_DIR}} && make test
     ```
 
 ### Opening a Pull Request
@@ -272,12 +272,12 @@ cd ~/github/context
 2.  **Create PR**
     ```bash
     gh pr create --draft \
-      --title "DXT-1234: Brief description" \
-      --body "$(cat docs/DXT-1234-summary.md)"
+      --title "TICKET-1234: Brief description" \
+      --body "$(cat docs/TICKET-1234-summary.md)"
     ```
 
 3.  **Add PR number to handoff doc**
-    Update `docs/DXT-1234-handoff.md` with PR link
+    Update `docs/TICKET-1234-handoff.md` with PR link
 
 4.  **Monitor CI checks**
     ```bash
@@ -309,121 +309,86 @@ cd ~/github/context
     ```
 
 2.  **Check deployment status**
-    - OneNews: [Cloudflare Dashboard](https://dash.cloudflare.com/8ef0462e0a2648876153c476d336d574/workers-and-pages)
-    - Monitor in Slack deployment channel
+    - Check deployment dashboard (see `context.json` for links)
+    - Monitor in team communication channel
 
 3.  **Update Jira**
     ```bash
-    jira issue move DXT-1234 "Done"
+    jira issue move TICKET-1234 "Done"
     ```
 
 ---
 
 ## 🏗️ Project-Specific Patterns
 
-### OneNews Web Services
+> **Note:** Customize this section with your project's specific patterns, tools, and workflows. The examples below are templates.
 
-**Location:** `~/github/onenews/web-services/`
+### Frontend/Web Services
+
+**Location:** Check `context.json` for linked repositories
 
 **Key Directories:**
-- `common/` - Shared components and utilities
-- `onenews/` - OneNews-specific code
-- `shiftnews/` - ShiftNews white-label
-- `gen-digital/` - Gen Digital white-label
+- `src/` or `app/` - Application code
+- `components/` - Reusable components
+- `lib/` or `utils/` - Shared utilities
 
 **Running Locally:**
 ```bash
-cd web-services
-pnpm install
-pnpm dev:on   # OneNews on :3001
-pnpm dev:sn   # ShiftNews on :3002
-pnpm dev      # All services
+cd {{PROJECT_DIR}}
+pnpm install  # or npm install, yarn install
+pnpm dev      # Start development server
 ```
 
 **Testing:**
 ```bash
 pnpm test           # Unit tests
 pnpm test:watch     # Watch mode
-pnpm test:e2e       # E2E tests (requires build first)
-pnpm test:e2e:ui    # E2E with Playwright UI
+pnpm test:e2e       # E2E tests (if configured)
 ```
 
-**Common Tasks:**
-- Components live in `common/components/`
-- Composables in `common/composables/`
-- Split test configs in `server/assets/configs/layoutSettings/`
-- Feature flags via OpenFeature/ConfigCat
+### Backend/API Services
 
-### Content Firehose (Python API)
-
-**Location:** `~/github/onenews/content-firehose/`
+**Location:** Check `context.json` for linked repositories
 
 **Running Locally:**
 ```bash
-# Docker (recommended)
-make run  # http://localhost:5001
+# Docker (if available)
+make run  # or docker-compose up
 
 # Direct
-make run-server  # http://localhost:5000
-
-# With live reload
-make run-dev  # http://localhost:5001
+cd {{PROJECT_DIR}}
+make run-server  # or python -m uvicorn main:app, etc.
 ```
 
 **Testing:**
 ```bash
 make test        # Unit tests
-make etl         # Run all ETLs
-make etl-stn     # Run STN ETL only
-make migrate     # Run DB migrations
+pytest           # Python projects
+npm test         # Node.js projects
 ```
 
-**Swagger UI:** http://localhost:5001/openapi/swagger
-
 **Key Files:**
-- `presentation/` - API endpoints
-- `adapters/` - ETL integrations
-- `domain/` - Business logic
-- `infrastructure/` - Database & external services
+- `src/` or `app/` - Application code
+- `routes/` or `endpoints/` - API endpoints
+- `services/` - Business logic
+- `models/` - Data models
 
 ### Feature Flags System
 
-**Location:** `~/github/duplex-feature-flags/`
+**Location:** Check `context.json` for linked repositories
 
-**Terraform-based ConfigCat management:**
-```bash
-cd terraform
-terraform plan
-terraform apply
-```
+**Common Tools:**
+- ConfigCat, LaunchDarkly, OpenFeature, etc.
 
 **Key Concepts:**
-- 10 user cohorts per tenant for A/B testing
-- Cookie-based persistence
-- Integration with MixPanel, OpenFeature
+- Feature flag configuration
+- A/B testing cohorts
+- Environment-based flags
 
 **Common Tasks:**
 ```bash
-./scripts/add-experiment.sh  # Interactive experiment creation
-./scripts/cohort-client.js    # Test cohort assignment
-```
-
-### Quartz Platform
-
-**Location:** `~/github/quartz/duplex-quartz/`
-
-**Email subscription management platform**
-
-**Running Locally:**
-```bash
-pnpm install
-pnpm dev  # Next.js on :3000
-```
-
-**Testing:**
-```bash
-pnpm test
-pnpm test:watch
+# Customize based on your feature flag system
+./scripts/manage-flags.sh
 ```
 
 ---
@@ -432,9 +397,9 @@ pnpm test:watch
 
 ### Create These Documents For Every Ticket
 
-#### 1. Summary (`DXT-XXXX-summary.md`)
+#### 1. Summary (`TICKET-XXXX-summary.md`)
 ```markdown
-# DXT-XXXX Implementation Summary
+# TICKET-XXXX Implementation Summary
 
 ## Ticket Overview
 **Title:** [Title from Jira]
@@ -452,10 +417,10 @@ pnpm test:watch
 2. [Then this]
 ```
 
-#### 2. Implementation Journal (`DXT-XXXX-implementation-journal.md`)
+#### 2. Implementation Journal (`TICKET-XXXX-implementation-journal.md`)
 Log your thought process:
 ```markdown
-# DXT-XXXX Implementation Journal
+# TICKET-XXXX Implementation Journal
 
 ## Investigation Phase
 - Found X in file Y
@@ -470,9 +435,9 @@ Log your thought process:
 - Pattern to avoid: ...
 ```
 
-#### 3. Testing Checklist (`DXT-XXXX-testing-checklist.md`)
+#### 3. Testing Checklist (`TICKET-XXXX-testing-checklist.md`)
 ```markdown
-# DXT-XXXX Testing Checklist
+# TICKET-XXXX Testing Checklist
 
 ## Setup
 - [ ] Dependencies installed
@@ -488,10 +453,10 @@ Log your thought process:
 - [ ] E2E tests pass
 ```
 
-#### 4. Handoff Document (`DXT-XXXX-handoff.md`)
+#### 4. Handoff Document (`TICKET-XXXX-handoff.md`)
 **This is the most critical document:**
 ```markdown
-# DXT-XXXX Handoff Document
+# TICKET-XXXX Handoff Document
 
 ## Status: [IN PROGRESS | BLOCKED | READY FOR REVIEW]
 
@@ -563,36 +528,36 @@ Create an Architecture Decision Record in `decision-records/` when:
 
 ### "I don't know what I'm supposed to be working on"
 
-1.  Check daily digest: `cat ~/github/context/daily-digest.md`
+1.  Check daily digest: `cat ${CONTEXT_DIR:-.}/daily-digest.md`
 2.  List your Jira tickets: `jira issue list -q "assignee = currentUser() AND status != Done"`
 3.  Check recent git activity: `git log --oneline --author="$(git config user.name)" -20`
 4.  Look for handoff docs: `ls docs/*-handoff.md`
 
 ### "The environment won't start"
 
-**For web-services:**
+**For Node.js projects:**
 ```bash
 # 1. Check .env files exist
-ls web-services/{onenews,shiftnews}/.env
+ls {{PROJECT_DIR}}/.env
 
 # 2. Install dependencies
-cd web-services && pnpm install
+cd {{PROJECT_DIR}} && pnpm install  # or npm install, yarn install
 
 # 3. Check Node version
-node --version  # Should be 20.x or 22.x
+node --version  # Check your project's required version
 
 # 4. Clear cache if needed
-rm -rf .nuxt .output node_modules/.cache
+rm -rf .next .nuxt .output node_modules/.cache
 pnpm install
 ```
 
-**For content-firehose:**
+**For Python projects:**
 ```bash
 # 1. Check .env exists
-ls content-firehose/.env
+ls {{PROJECT_DIR}}/.env
 
-# 2. Test with Docker
-cd content-firehose && make run
+# 2. Test with Docker (if available)
+cd {{PROJECT_DIR}} && make run
 
 # 3. Check Docker is running
 docker ps
@@ -631,20 +596,16 @@ docker ps
 - Comments mentioning people
 - "Relates to" links to other tickets
 
-**Slack channels:**
-- #onenews - OneNews development
-- #quartz - Quartz development
-- #dx-team - DX team general
-
-**Key people mentioned in docs:**
-- Tristan - Feature flags and split testing
-- Check CODEOWNERS file for code areas
+**Communication channels:**
+- Check `context.json` for links to team communication tools
+- Check project documentation for team channels
+- Check CODEOWNERS file for code areas and reviewers
 
 ### "I need access to something"
 
-**1Password vaults:**
-- `Duplex General` - Most .env files and credentials
-- Search for: "OneNews dotenv", "content-api dotenv"
+**Password manager:**
+- Check your team's password manager for .env files and credentials
+- Search for: "{{PROJECT_NAME}} dotenv", "{{SERVICE_NAME}} dotenv"
 
 **AWS Access:**
 - Credentials in .env files have read-only staging access
@@ -681,13 +642,13 @@ docker ps
 2.  **Commit documentation:**
     ```bash
     git add docs/
-    git commit -m "docs: update handoff for DXT-1234"
+    git commit -m "docs: update handoff for TICKET-1234"
     git push
     ```
 
-3.  **Update Jira:**
+3.  **Update ticket:**
     ```bash
-    jira issue comment DXT-1234 "Updated handoff doc. Status: [...]"
+    jira issue comment TICKET-1234 "Updated handoff doc. Status: [...]"
     ```
 
 ### Clean Workspace
@@ -707,35 +668,26 @@ git push origin HEAD
 ### Update Context Files
 
 If you learned something important, update:
-- `~/github/context/perspectives/[relevant-topic].md`
-- `~/github/context/architecture/[relevant-pattern].md`
-- Project-specific `.github/copilot-instructions.md`
+- `${CONTEXT_DIR:-.}/perspectives/[relevant-topic].md`
+- `${CONTEXT_DIR:-.}/architecture/[relevant-pattern].md`
+- Project-specific `.github/copilot-instructions.md` or `AGENTS.md`
 
 ---
 
 ## 🔗 Quick Reference Links
 
 ### Documentation
-- **Definitions**: `~/github/context/docs/definitions.md`
-- **OneNews README**: `~/github/onenews/README.md`
-- **Content API README**: `~/github/onenews/content-firehose/README.md`
-- **Feature Flags README**: `~/github/duplex-feature-flags/README.md`
-- **Contributing Guide**: `~/github/onenews/docs/CONTRIBUTING.md`
+- **Definitions**: `${CONTEXT_DIR:-.}/docs/definitions.md`
+- Check `context.json` for links to project-specific READMEs and documentation
+- Check linked repositories in `context.json` for contributing guides
 
-### Jira & Planning
-- [DX Jira Board](https://redbrickmedia.atlassian.net/jira/software/c/projects/DXT/boards/129)
-- [OneNews Board](https://redbrickmedia.atlassian.net/jira/software/c/projects/ON/boards/102)
-- [Confluence](https://redbrickmedia.atlassian.net/wiki/spaces/TRON/overview)
+### Project Management & Planning
+- Check `context.json` for links to your project management tools (Jira, Linear, etc.)
+- Check `context.json` for links to documentation wikis (Confluence, Notion, etc.)
 
 ### Deployments & Monitoring
-- [Cloudflare Dashboard](https://dash.cloudflare.com/8ef0462e0a2648876153c476d336d574/workers-and-pages)
-- [MixPanel](https://mixpanel.com/project/2083804/view/99051/app/boards#id=6354384)
-
-### Live Sites
-- [onenews.com](https://onenews.com)
-- [staging.onenews.com](https://staging.onenews.com)
-- [shiftntp.com](https://shiftntp.com)
-- [staging.shiftntp.com](https://staging.shiftntp.com)
+- Check `context.json` for links to deployment dashboards and monitoring tools
+- Check project documentation for deployment URLs and monitoring links
 
 ---
 
