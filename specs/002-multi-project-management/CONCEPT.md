@@ -215,6 +215,3 @@ Same repositories, different context and focus
 - Division projects (UI, DevOps) with focused scope
 - Product projects with specific focus
 - Staff switching between different project contexts
-
-Does this match your understanding?
-
