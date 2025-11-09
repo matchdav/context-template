@@ -31,7 +31,30 @@ specs/
 
 | ID  | Title | Status | Branch |
 |-----|-------|--------|--------|
-| 001 | MCP Server & Document Ingestion | Draft | `001-mcp-server-and-ingestion` |
+| 001 | MCP Server & Document Ingestion | In Progress | `001-mcp-server-and-ingestion` |
+| 002 | Multi-Project Management | Draft | `002-multi-project-management` |
+| 003 | Cloud Service Infrastructure | Draft | `003-cloud-service-infrastructure` |
+| 004 | Local-Cloud Sync | Draft | `004-local-cloud-sync` |
+| 005 | Cross-Project Search | Draft | `005-cross-project-search` |
+
+## Spec Overview
+
+### 001: MCP Server & Document Ingestion
+Provides a minimal, extensible MCP server implementation blueprint and document ingestion pipeline for local context access.
+
+### 002: Multi-Project Management
+Enable management of multiple project contexts from a single installation with project switching, discovery, and relationship management.
+
+### 003: Cloud Service Infrastructure
+Provide REST API, authentication, multi-tenancy, and cloud deployment capabilities for remote context access.
+
+### 004: Local-Cloud Sync
+Bidirectional sync between local and cloud contexts with conflict detection, resolution, and offline support.
+
+### 005: Cross-Project Search
+Enable search across multiple project contexts with unified index, project filtering, and relationship awareness.
+
+See `GAP-ANALYSIS.md` in the root for a comprehensive overview of gaps and roadmap.
 
 ## Creating New Specs
 
