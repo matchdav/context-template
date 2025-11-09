@@ -1,6 +1,7 @@
 # Feature Spec: MCP Server & Document Ingestion Pattern
 
-**Branch**: `001-mcp-server-and-ingestion` | **Date**: 2025-11-06 | **Status**: Draft
+**Branch**: `001-mcp-server-and-ingestion` | **Date**: 2025-11-06 | **Status**: In Progress
+**Implementation Status**: See `IMPLEMENTATION-STATUS.md` for current state
 **Owner**: TBD | **Version**: 0.1.0
 
 ## 1. Problem Statement

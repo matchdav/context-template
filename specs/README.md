@@ -31,7 +31,7 @@ specs/
 
 | ID  | Title | Status | Branch |
 |-----|-------|--------|--------|
-| 001 | MCP Server & Document Ingestion | In Progress | `001-mcp-server-and-ingestion` |
+| 001 | MCP Server & Document Ingestion | In Progress (75% complete) | `001-mcp-server-and-ingestion` |
 | 002 | Multi-Project Management | Draft | `002-multi-project-management` |
 | 003 | Cloud Service Infrastructure | Draft | `003-cloud-service-infrastructure` |
 | 004 | Local-Cloud Sync | Draft | `004-local-cloud-sync` |
